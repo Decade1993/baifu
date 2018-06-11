@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="global">
+
+  <sql id="criteria">
+    <if test="updatedAt != null">AND `updated_at` = #{updatedAt}</if>
+    <if test="createdAt != null">AND `created_at` = #{createdAt}</if>
+    <if test="updatedAtRange != null">
+      <if test="updatedAtRange.hasLowerBound()">
+        AND `updated_at`
+        <if test="updatedAtRange.lowerBoundType == 'OPEN'">&gt;</if>
+        <if test="updatedAtRange.lowerBoundType == 'CLOSED'">&gt;=</if>
+        #{updatedAtRange.lowerEndpoint, javaType = java.util.Date}
+      </if>
+      <if test="updatedAtRange.hasUpperBound()">
+        AND `updated_at`
+        <if test="updatedAtRange.upperBoundType == 'OPEN'">&lt;</if>
+        <if test="updatedAtRange.upperBoundType == 'CLOSED'">&lt;=</if>
+        #{updatedAtRange.upperEndpoint, javaType = java.util.Date}
+      </if>
+    </if>
+    <if test="createdAtRange != null">
+      <if test="createdAtRange.hasLowerBound()">
+        AND `created_at`
+        <if test="createdAtRange.lowerBoundType == 'OPEN'">&gt;</if>
+        <if test="createdAtRange.lowerBoundType == 'CLOSED'">&gt;=</if>
+        #{createdAtRange.lowerEndpoint, javaType = java.util.Date}
+      </if>
+      <if test="createdAtRange.hasUpperBound()">
+        AND `created_at`
+        <if test="createdAtRange.upperBoundType == 'OPEN'">&lt;</if>
+        <if test="createdAtRange.upperBoundType == 'CLOSED'">&lt;=</if>
+        #{createdAtRange.upperEndpoint, javaType = java.util.Date}
+      </if>
+    </if>
+  </sql>
+
+  <sql id="create">
+    INSERT INTO
+    <include refid="table"/>
+    (<include refid="biz_columns"/>, updated_at, created_at)
+    VALUES
+    (<include refid="biz_values"/>,
+    <if test="updatedAt == null">now()</if>
+    <if test="updatedAt != null">#{updatedAt}</if>
+    ,
+    <if test="createdAt == null">now()</if>
+    <if test="createdAt != null">#{createdAt}</if>
+    )
+  </sql>
+
+  <sql id="creates">
+    INSERT INTO
+    <include refid="table"/>
+    (<include refid="biz_columns"/>, updated_at, created_at)
+    VALUES
+    <foreach collection="collection" separator="," item="i">
+      (
+      <include refid="biz_values_each"/>,
+      <if test="i.updatedAt == null">now()</if>
+      <if test="i.updatedAt != null">#{i.updatedAt}</if>
+      ,
+      <if test="i.createdAt == null">now()</if>
+      <if test="i.createdAt != null">#{i.createdAt}</if>
+      )
+    </foreach>
+  </sql>
+
+  <sql id="findById">
+    SELECT
+    <include refid="all_columns"/>
+    FROM
+    <include refid="table"/>
+    WHERE id = #{id}
+  </sql>
+
+  <sql id="findByIds">
+    SELECT
+    <include refid="all_columns"/>
+    FROM
+    <include refid="table"/>
+    WHERE id IN
+    <foreach item="id" collection="collection" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </sql>
+
+  <sql id="deletes">
+    DELETE FROM
+    <include refid="table"/>
+    WHERE id in
+    <foreach item="id" collection="collection" open="(" separator="," close=")">
+      #{id}
+    </foreach>
+  </sql>
+
+  <sql id="count">
+    SELECT COUNT(id)
+    FROM
+    <include refid="table"/>
+    <where>
+      <include refid="criteria"/>
+    </where>
+  </sql>
+
+  <sql id="paging">
+    SELECT
+    <include refid="all_columns"/>
+    FROM
+    <include refid="table"/>
+    <where>
+      <include refid="criteria"/>
+    </where>
+    <if test="orderBy != null">order by ${orderBy}</if>
+    LIMIT #{offset}, #{limit}
+  </sql>
+
+  <sql id="list">
+    SELECT
+    <include refid="all_columns"/>
+    FROM
+    <include refid="table"/>
+    <where>
+      <include refid="criteria"/>
+    </where>
+    <if test="orderBy != null">order by ${orderBy}</if>
+  </sql>
+</mapper>
