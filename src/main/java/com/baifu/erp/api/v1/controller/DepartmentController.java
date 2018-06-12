@@ -78,7 +78,7 @@ public class DepartmentController extends BaseController {
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, data);
   }
 
-  @ApiOperation(value = "通过部门id删除该部门")
+  @ApiOperation(value = "通过部门id删除该部门以及其下所有部门")
   @DeleteMapping("id/{id}")
   public ResponseBean deleteOne(@PathVariable("id") Long id) {
     departmentService.delete(id);
