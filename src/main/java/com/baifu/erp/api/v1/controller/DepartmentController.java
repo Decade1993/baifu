@@ -5,7 +5,6 @@ import com.baifu.erp.constant.ResultMsg;
 import com.baifu.erp.dto.CreateDepartmentDTO;
 import com.baifu.erp.entity.Department;
 import com.baifu.erp.service.DepartmentService;
-import com.baifu.erp.validator.ExistDepartmentName;
 import com.baifu.erp.vo.DepartmentVO;
 import com.baifu.erp.web.BaseController;
 import com.baifu.erp.web.ResponseBean;
