@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,7 @@ import java.util.List;
 public class DepartmentController extends BaseController {
 
 
-  @ApiOperation(value = "查询所有的部门，下级部门在上级部门的children中展示")
+  @ApiOperation(value = "查询所有的部门，下级部门在上级部门的children中展示,递归获取")
   @GetMapping("/listAllAsTree")
   public ResponseBean listAsTree() {
     List<DepartmentVO> data = departmentService.listAllAsTree();
@@ -75,6 +76,13 @@ public class DepartmentController extends BaseController {
   public ResponseBean getChildrenById(@PathVariable("id") Long id) {
     List<Department> data = departmentService.listChild(id);
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, data);
+  }
+
+  @ApiOperation(value = "通过部门id删除该部门")
+  @DeleteMapping("id/{id}")
+  public ResponseBean deleteOne(@PathVariable("id") Long id) {
+    departmentService.delete(id);
+    return new ResponseBean(ResultCode.OK, ResultMsg.OK, null);
   }
 
   @Autowired

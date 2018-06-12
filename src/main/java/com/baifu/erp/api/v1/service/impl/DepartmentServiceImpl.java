@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +70,23 @@ public class DepartmentServiceImpl implements DepartmentService {
 
   @Override
   public int delete(Long id) {
-    return departmentDao.delete(id);
+    List<Long> deleteList = new ArrayList<>();
+    deleteList.add(id);
+    List<Department> childList = getChildList(id);
+
+    long level = 0;
+    while (!childList.isEmpty() && ++level < DEPARTMENT_CHILD_SEARCH_DEPTH) {
+      deleteList.addAll(childList.stream().map(item -> item.getId()).collect(Collectors.toList()));
+
+      List<Department> collect = childList.stream()
+        .map(item -> getChildList(item.getId()))
+        .flatMap(item -> item.stream())
+        .collect(Collectors.toList());
+
+      childList.clear();
+      childList.addAll(collect);
+    }
+    return departmentDao.deletes(deleteList);
   }
 
   @Override
@@ -130,6 +147,11 @@ public class DepartmentServiceImpl implements DepartmentService {
       .collect(Collectors.toList());
   }
 
+  /**
+   * 填充子孙
+   * @param parent 父部门
+   * @param level 当前递归深度
+   */
   private void fillDescendants(DepartmentVO parent, int level) {
     int childCount = fillChildren(parent);
     if (childCount > 0 && level < DEPARTMENT_CHILD_SEARCH_DEPTH) {

@@ -30,7 +30,6 @@ public class Swagger {
       .title("百福ERP 接口文档 server : "+hostIP+":8080/service")
       .description("百福")
       .termsOfServiceUrl(hostIP)
-      .contact("decade")
       .version("1.0")
       .build();
   }

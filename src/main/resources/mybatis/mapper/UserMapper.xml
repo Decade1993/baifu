@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="User">
+  <resultMap id="UserMap" type="User">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="account" property="account"/>
+    <result column="password" property="password"/>
+    <result column="token" property="token"/>
+    <result column="belongs_department" property="belongsDepartment"/>
+    <result column="account_level_name" property="accountLevelName"/>
+    <result column="account_level" property="accountLevel"/>
+    <result column="belongs_top_level_department" property="belongsTopLevelDepartment"/>
+    <result column="updated_at" property="updatedAt"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+
+  <sql id="table">
+    `user`
+  </sql>
+
+  <!-- 仅业务字段，即除去 id、updated_at、created_at 之后的字段 -->
+  <sql id="biz_columns">
+    `name`, `account`, `password`, `token`, `belongs_department`, `account_level_name`, `account_level`, `belongs_top_level_department`
+  </sql>
+
+  <sql id="all_columns">
+    id,
+    <include refid="biz_columns"/>
+    , updated_at, created_at
+  </sql>
+
+  <sql id="biz_values">
+    #{name}, #{account}, #{password}, #{token}, #{belongsDepartment}, #{accountLevelName}, #{accountLevel}, #{belongsTopLevelDepartment}
+  </sql>
+
+  <sql id="biz_values_each">
+    #{i.name}, #{i.account}, #{i.password}, #{i.token}, #{i.belongsDepartment}, #{i.accountLevelName}, #{i.accountLevel}, #{i.belongsTopLevelDepartment}
+  </sql>
+
+  <sql id="criteria">
+    <if test="name != null"> and `name` = #{name}</if>
+    <if test="account != null"> and `account` = #{account}</if>
+    <if test="password != null"> and `password` = #{password}</if>
+    <if test="token != null"> and `token` = #{token}</if>
+    <if test="belongsDepartment != null"> and `belongs_department` = #{belongsDepartment}</if>
+    <if test="accountLevelName != null"> and `account_level_name` = #{accountLevelName}</if>
+    <if test="accountLevel != null"> and `account_level` = #{accountLevel}</if>
+    <if test="belongsTopLevelDepartment != null"> and `belongs_top_level_department` = #{belongsTopLevelDepartment}</if>
+    
+    <include refid="global.criteria"/>
+  </sql>
+
+  <update id="update" parameterType="User">
+    UPDATE
+    <include refid="table"/>
+    <set>
+      <if test="name != null">`name` = #{name},</if>
+      <if test="account != null">`account` = #{account},</if>
+      <if test="password != null">`password` = #{password},</if>
+      <if test="token != null">`token` = #{token},</if>
+      <if test="belongsDepartment != null">`belongs_department` = #{belongsDepartment},</if>
+      <if test="accountLevelName != null">`account_level_name` = #{accountLevelName},</if>
+      <if test="accountLevel != null">`account_level` = #{accountLevel},</if>
+      <if test="belongsTopLevelDepartment != null">`belongs_top_level_department` = #{belongsTopLevelDepartment},</if>
+      
+      <if test="updatedAt != null">`updated_at` = #{updatedAt},</if>
+      <if test="updatedAt == null">`updated_at` = now(),</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <insert id="creates" keyProperty="id" useGeneratedKeys="true">
+    <include refid="global.creates"/>
+  </insert>
+
+  <insert id="create" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+    <include refid="global.create"/>
+  </insert>
+
+  <select id="findById" parameterType="long" resultMap="UserMap">
+    <include refid="global.findById"/>
+  </select>
+
+  <select id="findByIds" resultMap="UserMap">
+    <include refid="global.findByIds"/>
+  </select>
+
+  <delete id="delete" parameterType="long">
+    DELETE FROM
+    <include refid="table"/>
+    WHERE id = #{id}
+  </delete>
+
+  <delete id="deletes">
+    <include refid="global.deletes"/>
+  </delete>
+
+  <select id="count" parameterType="UserCriteria" resultType="long">
+    <include refid="global.count"/>
+  </select>
+
+  <select id="paging" parameterType="UserCriteria" resultMap="UserMap">
+    <include refid="global.paging"/>
+  </select>
+
+  <select id="list" parameterType="UserCriteria" resultMap="UserMap">
+    <include refid="global.list"/>
+  </select>
+
+  <!-- ############################ 自动生成部分至此结束，手动扩展添加的请写在本分隔符下方 ############################ -->
+
+</mapper>
