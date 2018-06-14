@@ -58,8 +58,15 @@ public class UserController extends BaseController {
 
   @ApiOperation(value = "通过id获取账号数据")
   @GetMapping("/id/{id}")
-  public ResponseBean getOne(@PathVariable("id") Long id) {
+  public ResponseBean getOneById(@PathVariable("id") Long id) {
     User data = userService.findById(id);
+    return new ResponseBean(ResultCode.OK, ResultMsg.OK, data);
+  }
+
+  @ApiOperation(value = "通过account获取账号数据")
+  @PutMapping("/account/{account}")
+  public ResponseBean getOneByAccount(@PathVariable("account") String account) {
+    User data = userService.findByAccount(account);
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, data);
   }
 

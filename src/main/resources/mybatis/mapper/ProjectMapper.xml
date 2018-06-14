@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="Project">
+  <resultMap id="ProjectMap" type="Project">
+    <id column="id" property="id"/>
+    <result column="number" property="number"/>
+    <result column="order_date" property="orderDate"/>
+    <result column="year" property="year"/>
+    <result column="month" property="month"/>
+    <result column="province" property="province"/>
+    <result column="city" property="city"/>
+    <result column="region" property="region"/>
+    <result column="town" property="town"/>
+    <result column="house_number" property="houseNumber"/>
+    <result column="store_name" property="storeName"/>
+    <result column="brand" property="brand"/>
+    <result column="project_attribute" property="projectAttribute"/>
+    <result column="store_attribute" property="storeAttribute"/>
+    <result column="client_name" property="clientName"/>
+    <result column="client_attribute" property="clientAttribute"/>
+    <result column="client_phone" property="clientPhone"/>
+    <result column="client_qq" property="clientQq"/>
+    <result column="client_wechat" property="clientWechat"/>
+    <result column="first_party_manager" property="firstPartyManager"/>
+    <result column="first_party_manager_phone" property="firstPartyManagerPhone"/>
+    <result column="store_manager" property="storeManager"/>
+    <result column="store_manager_phone" property="storeManagerPhone"/>
+    <result column="deposit" property="deposit"/>
+    <result column="response_person" property="responsePerson"/>
+    <result column="response_person_phone" property="responsePersonPhone"/>
+    <result column="measure_date" property="measureDate"/>
+    <result column="measure_staff" property="measureStaff"/>
+    <result column="measure_staff_phone" property="measureStaffPhone"/>
+    <result column="design_department" property="designDepartment"/>
+    <result column="design_department_manager" property="designDepartmentManager"/>
+    <result column="design_department_manager_phone" property="designDepartmentManagerPhone"/>
+    <result column="advance_open_date" property="advanceOpenDate"/>
+    <result column="business_area" property="businessArea"/>
+    <result column="cupboard_length" property="cupboardLength"/>
+    <result column="back_cupboard_area" property="backCupboardArea"/>
+    <result column="metal_crafts" property="metalCrafts"/>
+    <result column="basic_equip_response" property="basicEquipResponse"/>
+    <result column="order_urgent" property="orderUrgent"/>
+    <result column="site_accuracy" property="siteAccuracy"/>
+    <result column="updated_at" property="updatedAt"/>
+    <result column="created_at" property="createdAt"/>
+  </resultMap>
+
+  <sql id="table">
+    `project`
+  </sql>
+
+  <!-- 仅业务字段，即除去 id、updated_at、created_at 之后的字段 -->
+  <sql id="biz_columns">
+    `number`, `order_date`, `year`, `month`, `province`, `city`, `region`, `town`, `house_number`, `store_name`, `brand`, `project_attribute`, `store_attribute`, `client_name`, `client_attribute`, `client_phone`, `client_qq`, `client_wechat`, `first_party_manager`, `first_party_manager_phone`, `store_manager`, `store_manager_phone`, `deposit`, `response_person`, `response_person_phone`, `measure_date`, `measure_staff`, `measure_staff_phone`, `design_department`, `design_department_manager`, `design_department_manager_phone`, `advance_open_date`, `business_area`, `cupboard_length`, `back_cupboard_area`, `metal_crafts`, `basic_equip_response`, `order_urgent`, `site_accuracy`
+  </sql>
+
+  <sql id="all_columns">
+    id,
+    <include refid="biz_columns"/>
+    , updated_at, created_at
+  </sql>
+
+  <sql id="biz_values">
+    #{number}, #{orderDate}, #{year}, #{month}, #{province}, #{city}, #{region}, #{town}, #{houseNumber}, #{storeName}, #{brand}, #{projectAttribute}, #{storeAttribute}, #{clientName}, #{clientAttribute}, #{clientPhone}, #{clientQq}, #{clientWechat}, #{firstPartyManager}, #{firstPartyManagerPhone}, #{storeManager}, #{storeManagerPhone}, #{deposit}, #{responsePerson}, #{responsePersonPhone}, #{measureDate}, #{measureStaff}, #{measureStaffPhone}, #{designDepartment}, #{designDepartmentManager}, #{designDepartmentManagerPhone}, #{advanceOpenDate}, #{businessArea}, #{cupboardLength}, #{backCupboardArea}, #{metalCrafts}, #{basicEquipResponse}, #{orderUrgent}, #{siteAccuracy}
+  </sql>
+
+  <sql id="biz_values_each">
+    #{i.number}, #{i.orderDate}, #{i.year}, #{i.month}, #{i.province}, #{i.city}, #{i.region}, #{i.town}, #{i.houseNumber}, #{i.storeName}, #{i.brand}, #{i.projectAttribute}, #{i.storeAttribute}, #{i.clientName}, #{i.clientAttribute}, #{i.clientPhone}, #{i.clientQq}, #{i.clientWechat}, #{i.firstPartyManager}, #{i.firstPartyManagerPhone}, #{i.storeManager}, #{i.storeManagerPhone}, #{i.deposit}, #{i.responsePerson}, #{i.responsePersonPhone}, #{i.measureDate}, #{i.measureStaff}, #{i.measureStaffPhone}, #{i.designDepartment}, #{i.designDepartmentManager}, #{i.designDepartmentManagerPhone}, #{i.advanceOpenDate}, #{i.businessArea}, #{i.cupboardLength}, #{i.backCupboardArea}, #{i.metalCrafts}, #{i.basicEquipResponse}, #{i.orderUrgent}, #{i.siteAccuracy}
+  </sql>
+
+  <sql id="criteria">
+    <if test="number != null"> and `number` = #{number}</if>
+    <if test="orderDate != null"> and `order_date` = #{orderDate}</if>
+    <if test="year != null"> and `year` = #{year}</if>
+    <if test="month != null"> and `month` = #{month}</if>
+    <if test="province != null"> and `province` = #{province}</if>
+    <if test="city != null"> and `city` = #{city}</if>
+    <if test="region != null"> and `region` = #{region}</if>
+    <if test="town != null"> and `town` = #{town}</if>
+    <if test="houseNumber != null"> and `house_number` = #{houseNumber}</if>
+    <if test="storeName != null"> and `store_name` = #{storeName}</if>
+    <if test="brand != null"> and `brand` = #{brand}</if>
+    <if test="projectAttribute != null"> and `project_attribute` = #{projectAttribute}</if>
+    <if test="storeAttribute != null"> and `store_attribute` = #{storeAttribute}</if>
+    <if test="clientName != null"> and `client_name` = #{clientName}</if>
+    <if test="clientAttribute != null"> and `client_attribute` = #{clientAttribute}</if>
+    <if test="clientPhone != null"> and `client_phone` = #{clientPhone}</if>
+    <if test="clientQq != null"> and `client_qq` = #{clientQq}</if>
+    <if test="clientWechat != null"> and `client_wechat` = #{clientWechat}</if>
+    <if test="firstPartyManager != null"> and `first_party_manager` = #{firstPartyManager}</if>
+    <if test="firstPartyManagerPhone != null"> and `first_party_manager_phone` = #{firstPartyManagerPhone}</if>
+    <if test="storeManager != null"> and `store_manager` = #{storeManager}</if>
+    <if test="storeManagerPhone != null"> and `store_manager_phone` = #{storeManagerPhone}</if>
+    <if test="deposit != null"> and `deposit` = #{deposit}</if>
+    <if test="responsePerson != null"> and `response_person` = #{responsePerson}</if>
+    <if test="responsePersonPhone != null"> and `response_person_phone` = #{responsePersonPhone}</if>
+    <if test="measureDate != null"> and `measure_date` = #{measureDate}</if>
+    <if test="measureStaff != null"> and `measure_staff` = #{measureStaff}</if>
+    <if test="measureStaffPhone != null"> and `measure_staff_phone` = #{measureStaffPhone}</if>
+    <if test="designDepartment != null"> and `design_department` = #{designDepartment}</if>
+    <if test="designDepartmentManager != null"> and `design_department_manager` = #{designDepartmentManager}</if>
+    <if test="designDepartmentManagerPhone != null"> and `design_department_manager_phone` = #{designDepartmentManagerPhone}</if>
+    <if test="advanceOpenDate != null"> and `advance_open_date` = #{advanceOpenDate}</if>
+    <if test="businessArea != null"> and `business_area` = #{businessArea}</if>
+    <if test="cupboardLength != null"> and `cupboard_length` = #{cupboardLength}</if>
+    <if test="backCupboardArea != null"> and `back_cupboard_area` = #{backCupboardArea}</if>
+    <if test="metalCrafts != null"> and `metal_crafts` = #{metalCrafts}</if>
+    <if test="basicEquipResponse != null"> and `basic_equip_response` = #{basicEquipResponse}</if>
+    <if test="orderUrgent != null"> and `order_urgent` = #{orderUrgent}</if>
+    <if test="siteAccuracy != null"> and `site_accuracy` = #{siteAccuracy}</if>
+    
+    <include refid="global.criteria"/>
+  </sql>
+
+  <update id="update" parameterType="Project">
+    UPDATE
+    <include refid="table"/>
+    <set>
+      <if test="orderDate != null">`order_date` = #{orderDate},</if>
+      <if test="year != null">`year` = #{year},</if>
+      <if test="month != null">`month` = #{month},</if>
+      <if test="province != null">`province` = #{province},</if>
+      <if test="city != null">`city` = #{city},</if>
+      <if test="region != null">`region` = #{region},</if>
+      <if test="town != null">`town` = #{town},</if>
+      <if test="houseNumber != null">`house_number` = #{houseNumber},</if>
+      <if test="storeName != null">`store_name` = #{storeName},</if>
+      <if test="brand != null">`brand` = #{brand},</if>
+      <if test="projectAttribute != null">`project_attribute` = #{projectAttribute},</if>
+      <if test="storeAttribute != null">`store_attribute` = #{storeAttribute},</if>
+      <if test="clientName != null">`client_name` = #{clientName},</if>
+      <if test="clientAttribute != null">`client_attribute` = #{clientAttribute},</if>
+      <if test="clientPhone != null">`client_phone` = #{clientPhone},</if>
+      <if test="clientQq != null">`client_qq` = #{clientQq},</if>
+      <if test="clientWechat != null">`client_wechat` = #{clientWechat},</if>
+      <if test="firstPartyManager != null">`first_party_manager` = #{firstPartyManager},</if>
+      <if test="firstPartyManagerPhone != null">`first_party_manager_phone` = #{firstPartyManagerPhone},</if>
+      <if test="storeManager != null">`store_manager` = #{storeManager},</if>
+      <if test="storeManagerPhone != null">`store_manager_phone` = #{storeManagerPhone},</if>
+      <if test="deposit != null">`deposit` = #{deposit},</if>
+      <if test="responsePerson != null">`response_person` = #{responsePerson},</if>
+      <if test="responsePersonPhone != null">`response_person_phone` = #{responsePersonPhone},</if>
+      <if test="measureDate != null">`measure_date` = #{measureDate},</if>
+      <if test="measureStaff != null">`measure_staff` = #{measureStaff},</if>
+      <if test="measureStaffPhone != null">`measure_staff_phone` = #{measureStaffPhone},</if>
+      <if test="designDepartment != null">`design_department` = #{designDepartment},</if>
+      <if test="designDepartmentManager != null">`design_department_manager` = #{designDepartmentManager},</if>
+      <if test="designDepartmentManagerPhone != null">`design_department_manager_phone` = #{designDepartmentManagerPhone},</if>
+      <if test="advanceOpenDate != null">`advance_open_date` = #{advanceOpenDate},</if>
+      <if test="businessArea != null">`business_area` = #{businessArea},</if>
+      <if test="cupboardLength != null">`cupboard_length` = #{cupboardLength},</if>
+      <if test="backCupboardArea != null">`back_cupboard_area` = #{backCupboardArea},</if>
+      <if test="metalCrafts != null">`metal_crafts` = #{metalCrafts},</if>
+      <if test="basicEquipResponse != null">`basic_equip_response` = #{basicEquipResponse},</if>
+      <if test="orderUrgent != null">`order_urgent` = #{orderUrgent},</if>
+      <if test="siteAccuracy != null">`site_accuracy` = #{siteAccuracy},</if>
+      
+      <if test="updatedAt != null">`updated_at` = #{updatedAt},</if>
+      <if test="updatedAt == null">`updated_at` = now(),</if>
+    </set>
+    WHERE id = #{id}
+  </update>
+
+  <insert id="creates" keyProperty="id" useGeneratedKeys="true">
+    <include refid="global.creates"/>
+  </insert>
+
+  <insert id="create" parameterType="Project" keyProperty="id" useGeneratedKeys="true">
+    <include refid="global.create"/>
+  </insert>
+
+  <select id="findById" parameterType="long" resultMap="ProjectMap">
+    <include refid="global.findById"/>
+  </select>
+
+  <select id="findByIds" resultMap="ProjectMap">
+    <include refid="global.findByIds"/>
+  </select>
+
+  <delete id="delete" parameterType="long">
+    DELETE FROM
+    <include refid="table"/>
+    WHERE id = #{id}
+  </delete>
+
+  <delete id="deletes">
+    <include refid="global.deletes"/>
+  </delete>
+
+  <select id="count" parameterType="ProjectCriteria" resultType="long">
+    <include refid="global.count"/>
+  </select>
+
+  <select id="paging" parameterType="ProjectCriteria" resultMap="ProjectMap">
+    <include refid="global.paging"/>
+  </select>
+
+  <select id="list" parameterType="ProjectCriteria" resultMap="ProjectMap">
+    <include refid="global.list"/>
+  </select>
+
+  <!-- ############################ 自动生成部分至此结束，手动扩展添加的请写在本分隔符下方 ############################ -->
+
+</mapper>
