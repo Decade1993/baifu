@@ -23,11 +23,11 @@
     </encoder>
   </appender>
 
-  <!-- 将上面两个 appender 关联到我们的项目 -->
-  <!--<root level="DEBUG">-->
-    <!--<appender-ref ref="CONSOLE"/>-->
-    <!--<appender-ref ref="dailyRollingFileAppender"/>-->
-  <!--</root>-->
+   <!--将上面两个 appender 关联到我们的项目 -->
+  <root level="DEBUG">
+    <appender-ref ref="CONSOLE"/>
+    <appender-ref ref="dailyRollingFileAppender"/>
+  </root>
 
 
 </configuration>

@@ -64,7 +64,7 @@ public class UserController extends BaseController {
   }
 
   @ApiOperation(value = "通过account获取账号数据")
-  @PutMapping("/account/{account}")
+  @GetMapping("/account/{account}")
   public ResponseBean getOneByAccount(@PathVariable("account") String account) {
     User data = userService.findByAccount(account);
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, data);
@@ -76,8 +76,19 @@ public class UserController extends BaseController {
     @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, paramType = "form")
   })
   @PutMapping("/account/{account}")
-  public ResponseBean update(@PathVariable("account") String account, @ApiIgnore UpdateUserDTO updateUserDTO) {
+  public ResponseBean updateByAccount(@PathVariable("account") String account, @ApiIgnore UpdateUserDTO updateUserDTO) {
     userService.update(account, updateUserDTO);
+    return new ResponseBean(ResultCode.OK, ResultMsg.OK, null);
+  }
+
+  @ApiOperation(value = "修改账号信息")
+  @ApiImplicitParams({
+    @ApiImplicitParam(name = "password", value = "老密码", required = true, paramType = "form"),
+    @ApiImplicitParam(name = "newPassword", value = "新密码", required = true, paramType = "form")
+  })
+  @PutMapping("/id/{id}")
+  public ResponseBean updateById(@PathVariable("id") Long id, @ApiIgnore UpdateUserDTO updateUserDTO) {
+    userService.update(userService.findById(id).getAccount(), updateUserDTO);
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, null);
   }
 

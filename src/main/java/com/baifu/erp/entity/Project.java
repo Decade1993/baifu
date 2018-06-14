@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -29,6 +30,7 @@ public class Project extends BaseEntity {
   /**
    * 接单日期
    */
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @ApiModelProperty(value = "接单日期")
   private LocalDate orderDate;
 
@@ -173,6 +175,7 @@ public class Project extends BaseEntity {
   /**
    * 测量日期
    */
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @ApiModelProperty(value = "测量日期")
   private LocalDate measureDate;
 
@@ -209,6 +212,7 @@ public class Project extends BaseEntity {
   /**
    * 预开日期
    */
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   @ApiModelProperty(value = "预开日期")
   private LocalDate advanceOpenDate;
 
