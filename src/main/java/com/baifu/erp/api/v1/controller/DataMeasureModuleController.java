@@ -41,7 +41,7 @@ public class DataMeasureModuleController {
     return new ResponseBean(ResultCode.OK, ResultMsg.OK, projectAllInfoDTO);
   }
 
-  @ApiOperation(value = "上传测量数据")
+  @ApiOperation(value = "保存测量数据")
   @PostMapping("")
   public ResponseBean create(@PathVariable("id")Long id, @RequestBody List<String> urls) {
     moduleDataMeasureService.create(urls, id);

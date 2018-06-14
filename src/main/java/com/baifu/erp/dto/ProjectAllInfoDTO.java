@@ -1,5 +1,6 @@
 package com.baifu.erp.dto;
 
+import com.baifu.erp.entity.ModuleBrandStandard;
 import com.baifu.erp.entity.ModuleDataMeasure;
 import com.baifu.erp.entity.ModuleStoreRequirement;
 import com.baifu.erp.entity.Project;
@@ -17,4 +18,5 @@ public class ProjectAllInfoDTO {
   private Project baseInfo;
   private List<ModuleDataMeasure> dataMeasures;
   private List<ModuleStoreRequirement> storeRequirements;
+  private List<ModuleBrandStandard> brandStandards;
 }
