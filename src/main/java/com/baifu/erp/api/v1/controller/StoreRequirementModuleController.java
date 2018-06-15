@@ -12,6 +12,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import java.util.List;
 @Api(value = "商场要求API", description = "商场要求API")
 @RestController
 @RequestMapping("/v1/project/id/{id}/storeRequirement")
+@CrossOrigin
 public class StoreRequirementModuleController {
 
   @ApiOperation(value = "通过工程id获取商场要求")

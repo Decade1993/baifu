@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +25,7 @@ import java.util.List;
 @Api(value = "工程API", description = "工程API")
 @RestController
 @RequestMapping("/v1/project")
+@CrossOrigin
 public class ProjectController extends BaseController {
 
 
@@ -38,7 +40,7 @@ public class ProjectController extends BaseController {
   @PostMapping("")
   public ResponseBean create() {
     Project project = projectService.create();
-    return new ResponseBean(ResultCode.OK, ResultMsg.OK, project.getId());
+    return new ResponseBean(ResultCode.OK, ResultMsg.OK, project);
   }
 
   @ApiOperation(value = "更新工程基本信息")

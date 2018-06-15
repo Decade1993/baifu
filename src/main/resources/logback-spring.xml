@@ -23,11 +23,18 @@
     </encoder>
   </appender>
 
-   <!--将上面两个 appender 关联到我们的项目 -->
-  <root level="DEBUG">
-    <appender-ref ref="CONSOLE"/>
-    <appender-ref ref="dailyRollingFileAppender"/>
-  </root>
 
+
+  <springProfile name="dev">
+      <root level="DEBUG">
+          <appender-ref ref="CONSOLE"/>
+      </root>
+  </springProfile>
+
+    <springProfile name="prod">
+        <root level="DEBUG">
+            <appender-ref ref="dailyRollingFileAppender"/>
+        </root>
+    </springProfile>
 
 </configuration>
